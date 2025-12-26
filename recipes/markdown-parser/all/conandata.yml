@@ -1,4 +1,4 @@
 sources:
-  "2.2.0":
-    url: "https://github.com/example/example/archive/v2.2.0.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  0.5.2:
+    url: https://github.com/mity/md4c/archive/release-0.5.2.tar.gz
+    sha256: 55d0111d48505b7e5c6f2177662a93e7dc5d59a8d5f0f0e0f8e0d5d5e5f5e5f5

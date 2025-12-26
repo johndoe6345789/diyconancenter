@@ -1,24 +1,49 @@
 from conan import ConanFile
+from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
 
 class LoggerConan(ConanFile):
     name = "logger"
     version = "1.13.0"
-    description = "Wrapper for spdlog from Conan Center"
+    description = "Wrapper for spdlog with uniform API"
     license = "MIT"
     author = "DIY Conan Center"
-    url = "https://github.com/gabime/spdlog"
+    url = "https://github.com/johndoe6345789/diyconancenter"
     topics = ("c++", "library", "logger", "spdlog")
+    settings = "os", "compiler", "build_type", "arch"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
+    exports_sources = "CMakeLists.txt", "src/*", "include/*"
+    
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+    
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
     
     def requirements(self):
-        # Pull the actual library from Conan Center
+        # Depend on the real library from Conan Center
         self.requires("spdlog/1.13.0")
     
-    def package_id(self):
-        # This is a header-only wrapper, so it doesn't depend on settings
-        self.info.clear()
+    def layout(self):
+        cmake_layout(self)
+    
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
+    
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+    
+    def package(self):
+        cmake = CMake(self)
+        cmake.install()
     
     def package_info(self):
-        # Propagate the dependency information
-        self.cpp_info.bindirs = []
-        self.cpp_info.libdirs = []
+        self.cpp_info.libs = ["logger"]

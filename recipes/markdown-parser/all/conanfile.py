@@ -1,19 +1,19 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
+from conan.tools.files import get, copy
 
 
 class MarkdownparserConan(ConanFile):
     name = "markdown-parser"
-    version = "2.2.0"
-    description = "Markdown to HTML converter"
+    version = "0.5.2"
+    description = "Real md4c library - markdown-parser"
     license = "MIT"
     author = "DIY Conan Center"
-    url = "https://github.com/johndoe6345789/diyconancenter"
-    topics = ("c++", "library", "markdown-parser")
+    url = "https://github.com/mity/md4c"
+    topics = ("c++", "library", "markdown-parser", "md4c")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    exports_sources = "CMakeLists.txt", "src/*", "include/*"
     
     def config_options(self):
         if self.settings.os == "Windows":
@@ -23,12 +23,19 @@ class MarkdownparserConan(ConanFile):
         if self.options.shared:
             self.options.rm_safe("fPIC")
     
+    def source(self):
+        # Download and extract the source code from upstream
+        get(self, **self.conan_data["sources"][self.version], 
+            destination=self.source_folder, strip_root=True)
+    
     def layout(self):
-        cmake_layout(self)
+        cmake_layout(self, src_folder="src")
     
     def generate(self):
         tc = CMakeToolchain(self)
         tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
     
     def build(self):
         cmake = CMake(self)
@@ -38,6 +45,8 @@ class MarkdownparserConan(ConanFile):
     def package(self):
         cmake = CMake(self)
         cmake.install()
+        # Copy license files
+        copy(self, "LICENSE*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
     
     def package_info(self):
         self.cpp_info.libs = ["markdown_parser"]

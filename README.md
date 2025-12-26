@@ -15,19 +15,45 @@ Visit our [Package Index](https://johndoe6345789.github.io/diyconancenter/) to b
 
 ## 🔗 Real Library Integration
 
-Many packages in this repository pull from **real, production-ready open-source libraries** rather than stub implementations. These packages fetch code either from **Conan Center** or directly from upstream **Git repositories**.
+This repository demonstrates a **hybrid approach** to C/C++ package management:
 
-### Packages Using Real Libraries from Conan Center
+### Approach 1: Uniform Wrapper Libraries (Recommended)
 
-These packages act as wrappers that pull the actual library from Conan Center:
+These packages provide a **uniform, predictable API** while using real production libraries as backends:
+
+| Package Name | Uniform API | Backend Library | Conan Center Package |
+|--------------|-------------|-----------------|---------------------|
+| `json-parser` | `json_parser::JsonParser` | nlohmann_json | `nlohmann_json/3.11.3` |
+| `logger` | `logger::Logger` | spdlog | `spdlog/1.13.0` |
+
+**Benefits:**
+- ✅ **Predictable API**: All packages follow the same pattern with `initialize()` and `process()` methods
+- ✅ **Uniform classes**: Consistent naming and structure across all packages
+- ✅ **Real implementations**: Uses production-ready libraries internally (via Pimpl pattern)
+- ✅ **Easy to learn**: Once you know one package, you know them all
+
+**Example usage:**
+```cpp
+#include <json_parser.h>
+
+json_parser::JsonParser parser;
+parser.initialize();
+parser.process();  // Uses nlohmann_json internally
+```
+
+### Approach 2: Direct Conan Center Wrappers
+
+These packages act as thin wrappers that directly pull from Conan Center:
+
+### Approach 2: Direct Conan Center Wrappers
+
+These packages act as thin wrappers that directly pull from Conan Center:
 
 | Package Name | Real Library | Conan Center Package | Upstream Repository |
 |--------------|--------------|---------------------|---------------------|
-| `json-parser` | nlohmann_json | `nlohmann_json/3.11.3` | [nlohmann/json](https://github.com/nlohmann/json) |
 | `xml-parser` | tinyxml2 | `tinyxml2/10.0.0` | [leethomason/tinyxml2](https://github.com/leethomason/tinyxml2) |
 | `yaml-config` | yaml-cpp | `yaml-cpp/0.8.0` | [jbeder/yaml-cpp](https://github.com/jbeder/yaml-cpp) |
 | `ini-reader` | inih | `inih/58` | [benhoyt/inih](https://github.com/benhoyt/inih) |
-| `logger` | spdlog | `spdlog/1.13.0` | [gabime/spdlog](https://github.com/gabime/spdlog) |
 | `crypto-utils` | openssl | `openssl/3.2.0` | [openssl/openssl](https://github.com/openssl/openssl) |
 | `compression` | zlib | `zlib/1.3.1` | [madler/zlib](https://github.com/madler/zlib) |
 | `websocket` | websocketpp | `websocketpp/0.8.2` | [zaphoyd/websocketpp](https://github.com/zaphoyd/websocketpp) |
@@ -35,8 +61,9 @@ These packages act as wrappers that pull the actual library from Conan Center:
 | `jwt-auth` | jwt-cpp | `jwt-cpp/0.7.0` | [Thalhammer/jwt-cpp](https://github.com/Thalhammer/jwt-cpp) |
 | `datetime-utils` | date | `date/3.0.1` | [HowardHinnant/date](https://github.com/HowardHinnant/date) |
 | `regex` | re2 | `re2/2023-11-01` | [google/re2](https://github.com/google/re2) |
+| `image-proc` | stb | `stb/master` | [nothings/stb](https://github.com/nothings/stb) |
 
-### Packages Fetching Source Directly from Git
+### Approach 3: Git Source Fetching
 
 These packages download source code directly from upstream repositories:
 
@@ -45,10 +72,13 @@ These packages download source code directly from upstream repositories:
 | `csv-parser` | csv-parser | 2.3.0 | [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser) |
 | `http-client` | cpp-httplib | 0.15.3 | [yhirose/cpp-httplib](https://github.com/yhirose/cpp-httplib) |
 | `hash-functions` | hash-library | 8 | [stbrumme/hash-library](https://github.com/stbrumme/hash-library) |
+| `uuid-generator` | stduuid | 1.2.3 | [mariusbancila/stduuid](https://github.com/mariusbancila/stduuid) |
+| `email-validator` | email-validator | 1.0.0 | [JulianSchmid/cpp-email-validator](https://github.com/JulianSchmid/cpp-email-validator) |
+| `markdown-parser` | md4c | 0.5.2 | [mity/md4c](https://github.com/mity/md4c) |
 
 ### DIY/Stub Implementations
 
-The remaining packages (~35) are simple DIY implementations useful for demonstration and testing purposes.
+The remaining packages (~31) are simple DIY implementations useful for demonstration and testing purposes.
 
 ## 📚 Available Packages (50 Total)
 

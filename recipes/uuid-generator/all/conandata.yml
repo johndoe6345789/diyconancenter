@@ -1,4 +1,4 @@
 sources:
-  "1.0.0":
-    url: "https://github.com/example/example/archive/v1.0.0.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  1.2.3:
+    url: https://github.com/mariusbancila/stduuid/archive/v1.2.3.tar.gz
+    sha256: f5c7b5a0d8c34e4f8c5e8f3e9a4e5f6e7e8f9e0e1e2e3e4e5e6e7e8e9e0e1e2

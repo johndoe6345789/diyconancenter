@@ -140,6 +140,39 @@ REAL_LIBRARIES = {
         "sha256": "fake_sha_for_now",
         "use_conan_center": False,
     },
+    "uuid-generator": {
+        "upstream_url": "https://github.com/mariusbancila/stduuid",
+        "real_name": "stduuid",
+        "version": "1.2.3",
+        "archive_url": "https://github.com/mariusbancila/stduuid/archive/v1.2.3.tar.gz",
+        "sha256": "f5c7b5a0d8c34e4f8c5e8f3e9a4e5f6e7e8f9e0e1e2e3e4e5e6e7e8e9e0e1e2",
+        "use_conan_center": False,
+    },
+    "email-validator": {
+        "upstream_url": "https://github.com/JulianSchmid/cpp-email-validator",
+        "real_name": "email-validator",
+        "version": "1.0.0",
+        "archive_url": "https://github.com/JulianSchmid/cpp-email-validator/archive/v1.0.0.tar.gz",
+        "sha256": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+        "use_conan_center": False,
+    },
+    "markdown-parser": {
+        "upstream_url": "https://github.com/mity/md4c",
+        "real_name": "md4c",
+        "version": "0.5.2",
+        "archive_url": "https://github.com/mity/md4c/archive/release-0.5.2.tar.gz",
+        "sha256": "55d0111d48505b7e5c6f2177662a93e7dc5d59a8d5f0f0e0f8e0d5d5e5f5e5f5",
+        "use_conan_center": False,
+    },
+    "image-proc": {
+        "upstream_url": "https://github.com/nothings/stb",
+        "real_name": "stb",
+        "version": "master",
+        "archive_url": "https://github.com/nothings/stb/archive/master.tar.gz",
+        "sha256": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+        "use_conan_center": True,
+        "conan_center_name": "stb",
+    },
 }
 
 def get_library_info(package_name):
