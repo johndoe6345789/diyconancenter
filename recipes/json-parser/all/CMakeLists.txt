@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the real library
-find_package(nlohmann_json::nlohmann_json REQUIRED CONFIG)
+find_package(nlohmann_json REQUIRED CONFIG)
 
 add_library(json_parser src/json_parser.cpp)
 

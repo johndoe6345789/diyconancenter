@@ -173,7 +173,7 @@ class {class_name}Conan(ConanFile):
 '''
 
 
-def create_cmake_with_dependency(package_name, conan_target):
+def create_cmake_with_dependency(package_name, conan_package, conan_target):
     """Create CMakeLists.txt that links to real library."""
     lib_name = package_name.replace("-", "_")
     
@@ -184,7 +184,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the real library
-find_package({conan_target} REQUIRED CONFIG)
+find_package({conan_package} REQUIRED CONFIG)
 
 add_library({lib_name} src/{lib_name}.cpp)
 
@@ -210,10 +210,12 @@ install(DIRECTORY include/ DESTINATION include)
 WRAPPER_CONFIGS = {
     "json-parser": {
         "source_generator": create_wrapper_source_nlohmann_json,
+        "cmake_package": "nlohmann_json",
         "cmake_target": "nlohmann_json::nlohmann_json",
     },
     "logger": {
         "source_generator": create_wrapper_source_spdlog,
+        "cmake_package": "spdlog",
         "cmake_target": "spdlog::spdlog",
     },
 }
@@ -252,7 +254,7 @@ def create_wrapper_package(recipes_dir, package_name, info, config):
     # Create CMakeLists.txt
     cmake_file = package_path / "CMakeLists.txt"
     with open(cmake_file, 'w') as f:
-        f.write(create_cmake_with_dependency(package_name, config["cmake_target"]))
+        f.write(create_cmake_with_dependency(package_name, config["cmake_package"], config["cmake_target"]))
     
     print(f"  ✓ Created uniform wrapper for {package_name}")
     return True

@@ -154,6 +154,94 @@ This repository includes 50 sample packages covering various categories:
 - `url-parser` - URL parsing and manipulation
 - `email-validator` - Email address validation
 
+## 🎨 Coding Style & Conventions
+
+All packages in this repository follow consistent conventions for predictability and ease of use:
+
+### Naming Conventions
+
+| Element | Convention | Example |
+|---------|-----------|---------|
+| **Package name** | kebab-case | `json-parser`, `http-client` |
+| **Namespace** | snake_case (matches library name) | `json_parser`, `http_client` |
+| **Class name** | PascalCase (no underscores) | `JsonParser`, `HttpClient` |
+| **Library file** | snake_case | `json_parser`, `http_client` |
+
+### Uniform API Pattern
+
+All wrapper packages provide a consistent interface:
+
+```cpp
+#include <package_name.h>
+
+namespace package_name {
+
+class PackageName {
+public:
+    PackageName();
+    ~PackageName();
+    
+    void initialize();  // Setup/initialization
+    bool process();     // Main functionality
+    
+private:
+    class Impl;         // Pimpl pattern for implementation hiding
+    Impl* pImpl;
+};
+
+} // namespace package_name
+```
+
+### Example Usage
+
+```cpp
+// json-parser package
+#include <json_parser.h>
+
+json_parser::JsonParser parser;
+parser.initialize();
+bool success = parser.process();
+```
+
+```cpp
+// logger package
+#include <logger.h>
+
+logger::Logger log;
+log.initialize();
+log.process();
+```
+
+### C++ Standards
+
+- **C++17** - Minimum required standard
+- **Modern CMake** - 3.15 or higher
+- **Pimpl Pattern** - Used for implementation hiding when wrapping real libraries
+- **Header Guards** - Traditional `#ifndef` style (not `#pragma once`)
+
+### CMake Conventions
+
+```cmake
+# Project naming matches package name
+project(package-name CXX)
+
+# Library target uses snake_case
+add_library(package_name src/package_name.cpp)
+
+# Public headers in include/
+target_include_directories(package_name PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+```
+
+### Why This Matters
+
+- ✅ **Predictable**: Once you learn one package, you know them all
+- ✅ **Maintainable**: Consistent structure makes maintenance easier
+- ✅ **Professional**: Follows industry best practices
+- ✅ **Extensible**: Easy to add new packages following the same pattern
+
 ## 🚀 Quick Start
 
 ### Prerequisites

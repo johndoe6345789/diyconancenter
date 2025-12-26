@@ -22,6 +22,7 @@ def create_conanfile_with_source(package_name, info):
     return f'''from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 from conan.tools.files import get, copy
+import os
 
 
 class {class_name}Conan(ConanFile):

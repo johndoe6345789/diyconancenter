@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the real library
-find_package(spdlog::spdlog REQUIRED CONFIG)
+find_package(spdlog REQUIRED CONFIG)
 
 add_library(logger src/logger.cpp)
 
