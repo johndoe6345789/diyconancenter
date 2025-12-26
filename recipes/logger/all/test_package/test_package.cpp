@@ -1,15 +1,15 @@
-#include <logger.h>
+#include <spdlog/spdlog.h>
 #include <iostream>
 
 int main() {
-    logger::Logger obj;
-    obj.initialize();
-    
-    if (obj.process()) {
-        std::cout << "Test passed: logger is working!" << std::endl;
+    try {
+        spdlog::info("Test message from spdlog");
+        spdlog::warn("Warning message");
+        std::cout << "Test passed: logger (spdlog) is working!" << std::endl;
         return 0;
+    } catch (const std::exception& e) {
+        std::cerr << "Test failed: " << e.what() << std::endl;
+        return 1;
     }
-    
-    std::cerr << "Test failed!" << std::endl;
     return 1;
 }
