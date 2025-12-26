@@ -1,6 +1,8 @@
 #ifndef JSON_PARSER_H
 #define JSON_PARSER_H
 
+#include <memory>
+
 namespace json_parser {
 
 class JsonParser {
@@ -13,7 +15,7 @@ public:
     
 private:
     class Impl;
-    Impl* pImpl;
+    std::unique_ptr<Impl> pImpl;
 };
 
 } // namespace json_parser

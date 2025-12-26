@@ -17,6 +17,8 @@ def create_wrapper_header(package_name, lib_name):
     return f'''#ifndef {guard}
 #define {guard}
 
+#include <memory>
+
 namespace {lib_name} {{
 
 class {class_name} {{
@@ -29,7 +31,7 @@ public:
     
 private:
     class Impl;
-    Impl* pImpl;
+    std::unique_ptr<Impl> pImpl;
 }};
 
 }} // namespace {lib_name}
@@ -53,13 +55,11 @@ public:
     nlohmann::json data;
 }};
 
-{class_name}::{class_name}() : pImpl(new Impl()) {{
+{class_name}::{class_name}() : pImpl(std::make_unique<Impl>()) {{
     // Constructor
 }}
 
-{class_name}::~{class_name}() {{
-    delete pImpl;
-}}
+{class_name}::~{class_name}() = default;
 
 void {class_name}::initialize() {{
     std::cout << "Initializing json-parser with nlohmann_json backend..." << std::endl;
@@ -94,13 +94,11 @@ public:
     // spdlog is header-only/singleton, no instance needed
 }};
 
-{class_name}::{class_name}() : pImpl(new Impl()) {{
+{class_name}::{class_name}() : pImpl(std::make_unique<Impl>()) {{
     // Constructor
 }}
 
-{class_name}::~{class_name}() {{
-    delete pImpl;
-}}
+{class_name}::~{class_name}() = default;
 
 void {class_name}::initialize() {{
     spdlog::info("Initializing logger with spdlog backend...");

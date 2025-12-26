@@ -45,10 +45,6 @@ parser.process();  // Uses nlohmann_json internally
 
 These packages act as thin wrappers that directly pull from Conan Center:
 
-### Approach 2: Direct Conan Center Wrappers
-
-These packages act as thin wrappers that directly pull from Conan Center:
-
 | Package Name | Real Library | Conan Center Package | Upstream Repository |
 |--------------|--------------|---------------------|---------------------|
 | `xml-parser` | tinyxml2 | `tinyxml2/10.0.0` | [leethomason/tinyxml2](https://github.com/leethomason/tinyxml2) |

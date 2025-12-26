@@ -9,13 +9,11 @@ public:
     // spdlog is header-only/singleton, no instance needed
 };
 
-Logger::Logger() : pImpl(new Impl()) {
+Logger::Logger() : pImpl(std::make_unique<Impl>()) {
     // Constructor
 }
 
-Logger::~Logger() {
-    delete pImpl;
-}
+Logger::~Logger() = default;
 
 void Logger::initialize() {
     spdlog::info("Initializing logger with spdlog backend...");

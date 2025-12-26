@@ -1,6 +1,8 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <memory>
+
 namespace logger {
 
 class Logger {
@@ -13,7 +15,7 @@ public:
     
 private:
     class Impl;
-    Impl* pImpl;
+    std::unique_ptr<Impl> pImpl;
 };
 
 } // namespace logger

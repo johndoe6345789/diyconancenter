@@ -9,13 +9,11 @@ public:
     nlohmann::json data;
 };
 
-JsonParser::JsonParser() : pImpl(new Impl()) {
+JsonParser::JsonParser() : pImpl(std::make_unique<Impl>()) {
     // Constructor
 }
 
-JsonParser::~JsonParser() {
-    delete pImpl;
-}
+JsonParser::~JsonParser() = default;
 
 void JsonParser::initialize() {
     std::cout << "Initializing json-parser with nlohmann_json backend..." << std::endl;
