@@ -13,6 +13,43 @@ This is a DIY (Do-It-Yourself) Conan Center repository that demonstrates how to 
 
 Visit our [Package Index](https://johndoe6345789.github.io/diyconancenter/) to browse all available packages.
 
+## 🔗 Real Library Integration
+
+Many packages in this repository pull from **real, production-ready open-source libraries** rather than stub implementations. These packages fetch code either from **Conan Center** or directly from upstream **Git repositories**.
+
+### Packages Using Real Libraries from Conan Center
+
+These packages act as wrappers that pull the actual library from Conan Center:
+
+| Package Name | Real Library | Conan Center Package | Upstream Repository |
+|--------------|--------------|---------------------|---------------------|
+| `json-parser` | nlohmann_json | `nlohmann_json/3.11.3` | [nlohmann/json](https://github.com/nlohmann/json) |
+| `xml-parser` | tinyxml2 | `tinyxml2/10.0.0` | [leethomason/tinyxml2](https://github.com/leethomason/tinyxml2) |
+| `yaml-config` | yaml-cpp | `yaml-cpp/0.8.0` | [jbeder/yaml-cpp](https://github.com/jbeder/yaml-cpp) |
+| `ini-reader` | inih | `inih/58` | [benhoyt/inih](https://github.com/benhoyt/inih) |
+| `logger` | spdlog | `spdlog/1.13.0` | [gabime/spdlog](https://github.com/gabime/spdlog) |
+| `crypto-utils` | openssl | `openssl/3.2.0` | [openssl/openssl](https://github.com/openssl/openssl) |
+| `compression` | zlib | `zlib/1.3.1` | [madler/zlib](https://github.com/madler/zlib) |
+| `websocket` | websocketpp | `websocketpp/0.8.2` | [zaphoyd/websocketpp](https://github.com/zaphoyd/websocketpp) |
+| `cli-parser` | CLI11 | `cli11/2.4.1` | [CLIUtils/CLI11](https://github.com/CLIUtils/CLI11) |
+| `jwt-auth` | jwt-cpp | `jwt-cpp/0.7.0` | [Thalhammer/jwt-cpp](https://github.com/Thalhammer/jwt-cpp) |
+| `datetime-utils` | date | `date/3.0.1` | [HowardHinnant/date](https://github.com/HowardHinnant/date) |
+| `regex` | re2 | `re2/2023-11-01` | [google/re2](https://github.com/google/re2) |
+
+### Packages Fetching Source Directly from Git
+
+These packages download source code directly from upstream repositories:
+
+| Package Name | Real Library | Version | Upstream Repository |
+|--------------|--------------|---------|---------------------|
+| `csv-parser` | csv-parser | 2.3.0 | [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser) |
+| `http-client` | cpp-httplib | 0.15.3 | [yhirose/cpp-httplib](https://github.com/yhirose/cpp-httplib) |
+| `hash-functions` | hash-library | 8 | [stbrumme/hash-library](https://github.com/stbrumme/hash-library) |
+
+### DIY/Stub Implementations
+
+The remaining packages (~35) are simple DIY implementations useful for demonstration and testing purposes.
+
 ## 📚 Available Packages (50 Total)
 
 This repository includes 50 sample packages covering various categories:

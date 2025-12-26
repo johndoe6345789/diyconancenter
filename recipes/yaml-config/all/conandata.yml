@@ -1,4 +1,4 @@
 sources:
-  "1.5.2":
-    url: "https://github.com/example/example/archive/v1.5.2.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  0.8.0:
+    url: https://github.com/jbeder/yaml-cpp/archive/0.8.0.tar.gz
+    sha256: fbe74bbdcee21d656715688706da3c8becfd946d92cd44705cc6098bb23b3a16

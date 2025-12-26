@@ -1,4 +1,4 @@
 sources:
-  "1.3.0":
-    url: "https://github.com/example/example/archive/v1.3.0.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  0.8.2:
+    url: https://github.com/zaphoyd/websocketpp/archive/0.8.2.tar.gz
+    sha256: 6ce889d85ecdc2d8fa07408d6787e7352510750daa66b5ad44aacb47bea76755

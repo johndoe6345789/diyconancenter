@@ -1,4 +1,4 @@
 sources:
-  "2.0.0":
-    url: "https://github.com/example/example/archive/v2.0.0.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  '2023-11-01':
+    url: https://github.com/google/re2/archive/2023-11-01.tar.gz
+    sha256: 5bb6875ae1cd1e9fedde98018c346db7260655f86fdb8837d86f976af9d3bc24

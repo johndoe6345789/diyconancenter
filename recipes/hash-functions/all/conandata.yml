@@ -1,4 +1,4 @@
 sources:
-  "1.1.0":
-    url: "https://github.com/example/example/archive/v1.1.0.tar.gz"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  '8':
+    url: https://github.com/stbrumme/hash-library/archive/hash_library_v8.tar.gz
+    sha256: fake_sha_for_now
