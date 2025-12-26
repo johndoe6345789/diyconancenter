@@ -284,29 +284,61 @@ def requirements(self):
 
 ```
 diyconancenter/
-├── recipes/                    # All package recipes
+├── recipes/                         # All package recipes
 │   ├── json-parser/
-│   │   ├── config.yml         # Version mapping
-│   │   └── all/               # Recipe implementation
-│   │       ├── conanfile.py   # Main recipe file
-│   │       ├── conandata.yml  # Source URLs and checksums
-│   │       ├── CMakeLists.txt # Build configuration
-│   │       ├── src/           # Source files
-│   │       ├── include/       # Header files
-│   │       └── test_package/  # Package tests
+│   │   ├── config.yml              # Version mapping
+│   │   └── all/                    # Recipe implementation
+│   │       ├── conanfile.py        # Main recipe file
+│   │       ├── conandata.yml       # Source URLs and checksums
+│   │       ├── CMakeLists.txt      # Build configuration
+│   │       ├── src/                # Source files
+│   │       ├── include/            # Header files
+│   │       └── test_package/       # Package tests
 │   └── [49 more packages...]
-├── docs/                      # GitHub Pages documentation
-│   ├── index.html            # Package index page
-│   └── packages.json         # Package metadata
-├── scripts/                  # Utility scripts
-│   ├── generate_packages.py # Package generator
-│   └── generate_index.py    # Index page generator
+├── docs/                           # GitHub Pages documentation
+│   ├── index.html                  # Package index page
+│   └── packages.json               # Package metadata
+├── scripts/                        # Utility scripts
+│   ├── generate_packages.py        # Package generator
+│   ├── generate_index.py           # Index page generator
+│   ├── validate_design_patterns.py # Design pattern validator
+│   └── pre-commit-hook.sh          # Pre-commit validation
+├── .design-patterns.yml            # Validation configuration
+├── ARCHITECTURAL_PATTERNS.md       # Design pattern documentation
+├── DESIGN_PATTERN_ENFORCEMENT.md   # Tooling documentation
 └── .github/
     └── workflows/
-        └── build-packages.yml # CI/CD pipeline
+        └── build-packages.yml      # CI/CD pipeline with validation
 ```
 
 ## 🔧 Development
+
+### Design Pattern Validation
+
+All packages must follow architectural design patterns. Validation runs automatically:
+
+**Local validation:**
+```bash
+# Check your package follows patterns
+python3 scripts/validate_design_patterns.py
+
+# Install pre-commit hook (recommended)
+ln -s ../../scripts/pre-commit-hook.sh .git/hooks/pre-commit
+```
+
+**Automatic validation:**
+- ✅ Runs on every push and PR
+- ✅ Blocks merging if errors found
+- ✅ See [DESIGN_PATTERN_ENFORCEMENT.md](DESIGN_PATTERN_ENFORCEMENT.md)
+
+**Design patterns by domain:**
+- See [ARCHITECTURAL_PATTERNS.md](ARCHITECTURAL_PATTERNS.md) for patterns covering:
+  - Game development (physics, graphics, audio)
+  - Web development (HTTP, WebSocket, REST)
+  - CAD/3D printing (geometry, slicing, G-code)
+  - AI/ML (inference, computer vision, NLP)
+  - Dev tools (analyzers, formatters, profilers)
+  - Server tools (containers, networking, monitoring)
 
 ### Creating a New Package
 

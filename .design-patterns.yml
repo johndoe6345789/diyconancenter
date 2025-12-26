@@ -1,0 +1,120 @@
+# Design Pattern Validator Configuration
+# This file configures the validation rules for DIY Conan Center packages
+
+# Validation severity levels: "error", "warning", "info", "disabled"
+rules:
+  # Naming conventions
+  naming:
+    kebab_case: "error"           # Package names must be kebab-case
+    domain_prefix: "warning"      # Domain-specific packages should use prefix
+    
+  # Package structure
+  structure:
+    require_conanfile: "error"    # Must have conanfile.py
+    require_test_package: "warning"  # Should have test_package/
+    require_cmake: "error"        # Must have CMakeLists.txt if has source
+    include_with_src: "warning"   # Should have include/ if has src/
+    
+  # Conanfile requirements
+  conanfile:
+    require_name: "error"         # Must have 'name' attribute
+    require_version: "error"      # Must have 'version' attribute
+    require_license: "warning"    # Should have 'license' attribute
+    require_settings: "warning"   # Should have 'settings' attribute
+    require_os_import: "error"    # Must import 'os' if using it
+    
+  # Header file conventions
+  headers:
+    header_guards: "warning"      # Should use proper header guards
+    namespace_convention: "info"  # Should use matching namespace
+    pimpl_smart_pointer: "error"  # Must use smart pointers for Pimpl
+    
+  # Source file conventions
+  source:
+    include_header: "warning"     # Should include corresponding header
+    
+  # CMake conventions
+  cmake:
+    require_minimum_version: "error"     # Must specify cmake_minimum_required
+    require_cpp_standard: "warning"      # Should specify C++ standard
+    project_name_match: "warning"        # Project name should match package
+    library_target_naming: "warning"     # Library target naming convention
+    
+  # Test package requirements
+  tests:
+    require_test_conanfile: "error"      # Must have test_package/conanfile.py
+    require_test_source: "error"         # Must have test_package/test_package.cpp
+    require_test_cmake: "error"          # Must have test_package/CMakeLists.txt
+
+# Domain-specific prefixes
+domain_prefixes:
+  - "game-"      # Game development
+  - "web-"       # Web development
+  - "cad-"       # Computer-aided design
+  - "print-"     # 3D printing
+  - "ml-"        # Machine learning
+  - "ai-"        # Artificial intelligence
+  - "dev-"       # Development tools
+  - "server-"    # Server infrastructure
+
+# Keywords that suggest domain-specific packages
+domain_keywords:
+  game:
+    - "physics"
+    - "graphics"
+    - "audio"
+    - "engine"
+    - "render"
+  web:
+    - "http"
+    - "websocket"
+    - "rest"
+    - "api"
+    - "middleware"
+  cad:
+    - "mesh"
+    - "geometry"
+    - "nurbs"
+    - "boolean"
+    - "parametric"
+  print:
+    - "slice"
+    - "gcode"
+    - "infill"
+    - "support"
+    - "printer"
+  ai_ml:
+    - "neural"
+    - "inference"
+    - "vision"
+    - "nlp"
+    - "model"
+  dev_tools:
+    - "analyzer"
+    - "formatter"
+    - "profiler"
+    - "debugger"
+    - "linter"
+  server:
+    - "container"
+    - "kubernetes"
+    - "docker"
+    - "vpn"
+    - "cdn"
+
+# Packages exempt from certain rules
+exemptions:
+  # Legacy packages that don't follow new conventions
+  legacy_packages: []
+  
+  # Packages that intentionally don't follow certain rules
+  custom_rules:
+    # Example:
+    # my-special-package:
+    #   - "naming.domain_prefix"
+
+# Required C++ standard (minimum)
+cpp_standard: 17
+
+# Required CMake version (minimum)
+cmake_version: "3.15"
