@@ -89,8 +89,15 @@ Simple packages remain as demonstration/stub implementations useful for:
 - Placeholder implementations
 
 **Current Status:**
-- 15 packages pull from real libraries (12 from Conan Center, 3 from Git)
-- 35 packages are DIY/stub implementations
+- 19 packages pull from real libraries (13 from Conan Center, 6 from Git)
+- 2 packages have uniform wrapper APIs (json-parser, logger)
+- 31 packages are DIY/stub implementations
+
+**Note on SHA256 Checksums:**
+Some packages that fetch from Git currently use placeholder SHA256 values. In production use, these should be replaced with actual checksums calculated from the downloaded archives. This is a known limitation for demonstration purposes. To generate real checksums:
+```bash
+curl -L <archive-url> | sha256sum
+```
 
 ### Package Structure
 
