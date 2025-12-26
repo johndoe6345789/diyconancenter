@@ -1,0 +1,352 @@
+[
+  {
+    "name": "statistics",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Statistical analysis functions"
+  },
+  {
+    "name": "encryption",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "Encryption and decryption utilities"
+  },
+  {
+    "name": "queue",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Thread-safe queue implementations"
+  },
+  {
+    "name": "cli-parser",
+    "versions": [
+      "2.3.0"
+    ],
+    "description": "Command-line argument parser"
+  },
+  {
+    "name": "audio-codec",
+    "versions": [
+      "2.1.0"
+    ],
+    "description": "Audio codec library"
+  },
+  {
+    "name": "compression",
+    "versions": [
+      "2.4.0"
+    ],
+    "description": "Data compression algorithms"
+  },
+  {
+    "name": "url-parser",
+    "versions": [
+      "1.3.0"
+    ],
+    "description": "URL parsing and manipulation"
+  },
+  {
+    "name": "crypto-utils",
+    "versions": [
+      "1.3.0"
+    ],
+    "description": "Cryptographic utilities library"
+  },
+  {
+    "name": "uuid-generator",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "UUID generation library"
+  },
+  {
+    "name": "yaml-config",
+    "versions": [
+      "1.5.2"
+    ],
+    "description": "YAML configuration file parser"
+  },
+  {
+    "name": "barcode-reader",
+    "versions": [
+      "1.2.0"
+    ],
+    "description": "Barcode reading library"
+  },
+  {
+    "name": "xml-parser",
+    "versions": [
+      "2.1.0"
+    ],
+    "description": "Fast XML parsing library"
+  },
+  {
+    "name": "threading",
+    "versions": [
+      "2.3.0"
+    ],
+    "description": "Threading utilities and primitives"
+  },
+  {
+    "name": "database-connector",
+    "versions": [
+      "1.8.0"
+    ],
+    "description": "Database connection library"
+  },
+  {
+    "name": "datetime-utils",
+    "versions": [
+      "1.4.0"
+    ],
+    "description": "Date and time utilities"
+  },
+  {
+    "name": "vector-math",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "Vector and matrix operations"
+  },
+  {
+    "name": "qr-code",
+    "versions": [
+      "1.4.0"
+    ],
+    "description": "QR code generation and reading"
+  },
+  {
+    "name": "timer",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "High-resolution timer library"
+  },
+  {
+    "name": "oauth-client",
+    "versions": [
+      "1.6.0"
+    ],
+    "description": "OAuth 2.0 client library"
+  },
+  {
+    "name": "email-validator",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Email address validation"
+  },
+  {
+    "name": "tcp-server",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "TCP server framework"
+  },
+  {
+    "name": "graph",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "Graph algorithms library"
+  },
+  {
+    "name": "searching",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Search algorithms library"
+  },
+  {
+    "name": "ini-reader",
+    "versions": [
+      "0.9.0"
+    ],
+    "description": "Simple INI file reader and writer"
+  },
+  {
+    "name": "template-engine",
+    "versions": [
+      "1.5.0"
+    ],
+    "description": "Text template engine"
+  },
+  {
+    "name": "udp-socket",
+    "versions": [
+      "1.1.0"
+    ],
+    "description": "UDP socket wrapper"
+  },
+  {
+    "name": "logger",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "Thread-safe logging library"
+  },
+  {
+    "name": "serialization",
+    "versions": [
+      "2.1.0"
+    ],
+    "description": "Object serialization library"
+  },
+  {
+    "name": "pdf-generator",
+    "versions": [
+      "2.3.0"
+    ],
+    "description": "PDF generation library"
+  },
+  {
+    "name": "html-sanitizer",
+    "versions": [
+      "1.1.0"
+    ],
+    "description": "HTML sanitization library"
+  },
+  {
+    "name": "jwt-auth",
+    "versions": [
+      "2.1.0"
+    ],
+    "description": "JSON Web Token library"
+  },
+  {
+    "name": "json-parser",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "A lightweight JSON parser library for C++"
+  },
+  {
+    "name": "cache-manager",
+    "versions": [
+      "1.2.0"
+    ],
+    "description": "In-memory cache management"
+  },
+  {
+    "name": "network-lib",
+    "versions": [
+      "3.0.0"
+    ],
+    "description": "Network communication library"
+  },
+  {
+    "name": "stack",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Stack data structure utilities"
+  },
+  {
+    "name": "tree",
+    "versions": [
+      "1.1.0"
+    ],
+    "description": "Tree data structure library"
+  },
+  {
+    "name": "regex",
+    "versions": [
+      "2.0.0"
+    ],
+    "description": "Regular expression library"
+  },
+  {
+    "name": "http-client",
+    "versions": [
+      "2.2.0"
+    ],
+    "description": "HTTP client library"
+  },
+  {
+    "name": "csv-parser",
+    "versions": [
+      "3.2.1"
+    ],
+    "description": "High-performance CSV file parser"
+  },
+  {
+    "name": "hash-functions",
+    "versions": [
+      "1.1.0"
+    ],
+    "description": "Collection of hash functions"
+  },
+  {
+    "name": "async-io",
+    "versions": [
+      "1.5.0"
+    ],
+    "description": "Asynchronous I/O operations"
+  },
+  {
+    "name": "math-lib",
+    "versions": [
+      "3.1.0"
+    ],
+    "description": "Mathematical functions library"
+  },
+  {
+    "name": "image-proc",
+    "versions": [
+      "3.5.0"
+    ],
+    "description": "Image processing library"
+  },
+  {
+    "name": "video-decoder",
+    "versions": [
+      "1.9.0"
+    ],
+    "description": "Video decoding utilities"
+  },
+  {
+    "name": "random-gen",
+    "versions": [
+      "2.1.0"
+    ],
+    "description": "Random number generators"
+  },
+  {
+    "name": "sorting",
+    "versions": [
+      "1.0.0"
+    ],
+    "description": "Sorting algorithms collection"
+  },
+  {
+    "name": "websocket",
+    "versions": [
+      "1.3.0"
+    ],
+    "description": "WebSocket implementation"
+  },
+  {
+    "name": "geometry",
+    "versions": [
+      "1.2.0"
+    ],
+    "description": "Geometric calculations library"
+  },
+  {
+    "name": "markdown-parser",
+    "versions": [
+      "2.2.0"
+    ],
+    "description": "Markdown to HTML converter"
+  },
+  {
+    "name": "string-utils",
+    "versions": [
+      "1.0.5"
+    ],
+    "description": "String manipulation utilities"
+  }
+]

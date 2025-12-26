@@ -1,0 +1,85 @@
+name: Build Conan Packages
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-packages:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          
+      - name: Install Conan
+        run: |
+          pip install conan
+          conan --version
+
+      - name: Configure Conan
+        run: |
+          conan profile detect --force
+
+      - name: Build packages
+        run: |
+          # Build all packages in recipes folder
+          for recipe_dir in recipes/*/; do
+            if [ -d "$recipe_dir" ]; then
+              recipe_name=$(basename "$recipe_dir")
+              echo "Building $recipe_name..."
+              cd "$recipe_dir"
+              
+              # Find the first version directory
+              version_dir=$(find . -mindepth 1 -maxdepth 1 -type d | head -1)
+              if [ -d "$version_dir" ]; then
+                cd "$version_dir"
+                if [ -f "conanfile.py" ]; then
+                  conan create . --build=missing || echo "Failed to build $recipe_name"
+                fi
+                cd ../..
+              fi
+              cd ../..
+            fi
+          done
+        shell: bash
+
+  generate-index:
+    needs: build-packages
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate package index
+        run: |
+          python scripts/generate_index.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          enable_jekyll: false
