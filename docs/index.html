@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Conan Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #6c757d;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        .search-bar {
+            padding: 20px 40px;
+            background: white;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .packages {
+            padding: 20px 40px 40px;
+        }
+        .package-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .package-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+        .package-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .package-description {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        .package-versions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .version-badge {
+            background: #e9ecef;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            color: #495057;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            border-top: 2px solid #e9ecef;
+        }
+        .install-command {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 10px;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 DIY Conan Center</h1>
+            <p>Your Personal C/C++ Package Repository</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="total-packages">50</div>
+                <div class="stat-label">Packages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="total-versions">50</div>
+                <div class="stat-label">Versions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2025-12-26</div>
+                <div class="stat-label">Last Updated</div>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" id="search" class="search-input" placeholder="🔍 Search packages..." onkeyup="filterPackages()">
+        </div>
+        
+        <div class="packages" id="packages">
+            <div class="package-card" data-name="async-io">
+                <div class="package-name">async-io</div>
+                <div class="package-description">Asynchronous I/O operations</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.5.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=async-io/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="audio-codec">
+                <div class="package-name">audio-codec</div>
+                <div class="package-description">Audio codec library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=audio-codec/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="barcode-reader">
+                <div class="package-name">barcode-reader</div>
+                <div class="package-description">Barcode reading library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.2.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=barcode-reader/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="cache-manager">
+                <div class="package-name">cache-manager</div>
+                <div class="package-description">In-memory cache management</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.2.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=cache-manager/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="cli-parser">
+                <div class="package-name">cli-parser</div>
+                <div class="package-description">Command-line argument parser</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=cli-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="compression">
+                <div class="package-name">compression</div>
+                <div class="package-description">Data compression algorithms</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.4.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=compression/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="crypto-utils">
+                <div class="package-name">crypto-utils</div>
+                <div class="package-description">Cryptographic utilities library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=crypto-utils/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="csv-parser">
+                <div class="package-name">csv-parser</div>
+                <div class="package-description">High-performance CSV file parser</div>
+                <div class="package-versions">
+                    <span class="version-badge">3.2.1</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=csv-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="database-connector">
+                <div class="package-name">database-connector</div>
+                <div class="package-description">Database connection library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.8.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=database-connector/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="datetime-utils">
+                <div class="package-name">datetime-utils</div>
+                <div class="package-description">Date and time utilities</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.4.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=datetime-utils/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="email-validator">
+                <div class="package-name">email-validator</div>
+                <div class="package-description">Email address validation</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=email-validator/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="encryption">
+                <div class="package-name">encryption</div>
+                <div class="package-description">Encryption and decryption utilities</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=encryption/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="geometry">
+                <div class="package-name">geometry</div>
+                <div class="package-description">Geometric calculations library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.2.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=geometry/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="graph">
+                <div class="package-name">graph</div>
+                <div class="package-description">Graph algorithms library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=graph/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="hash-functions">
+                <div class="package-name">hash-functions</div>
+                <div class="package-description">Collection of hash functions</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=hash-functions/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="html-sanitizer">
+                <div class="package-name">html-sanitizer</div>
+                <div class="package-description">HTML sanitization library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=html-sanitizer/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="http-client">
+                <div class="package-name">http-client</div>
+                <div class="package-description">HTTP client library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.2.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=http-client/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="image-proc">
+                <div class="package-name">image-proc</div>
+                <div class="package-description">Image processing library</div>
+                <div class="package-versions">
+                    <span class="version-badge">3.5.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=image-proc/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="ini-reader">
+                <div class="package-name">ini-reader</div>
+                <div class="package-description">Simple INI file reader and writer</div>
+                <div class="package-versions">
+                    <span class="version-badge">0.9.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=ini-reader/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="json-parser">
+                <div class="package-name">json-parser</div>
+                <div class="package-description">A lightweight JSON parser library for C++</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=json-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="jwt-auth">
+                <div class="package-name">jwt-auth</div>
+                <div class="package-description">JSON Web Token library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=jwt-auth/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="logger">
+                <div class="package-name">logger</div>
+                <div class="package-description">Thread-safe logging library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=logger/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="markdown-parser">
+                <div class="package-name">markdown-parser</div>
+                <div class="package-description">Markdown to HTML converter</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.2.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=markdown-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="math-lib">
+                <div class="package-name">math-lib</div>
+                <div class="package-description">Mathematical functions library</div>
+                <div class="package-versions">
+                    <span class="version-badge">3.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=math-lib/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="network-lib">
+                <div class="package-name">network-lib</div>
+                <div class="package-description">Network communication library</div>
+                <div class="package-versions">
+                    <span class="version-badge">3.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=network-lib/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="oauth-client">
+                <div class="package-name">oauth-client</div>
+                <div class="package-description">OAuth 2.0 client library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.6.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=oauth-client/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="pdf-generator">
+                <div class="package-name">pdf-generator</div>
+                <div class="package-description">PDF generation library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=pdf-generator/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="qr-code">
+                <div class="package-name">qr-code</div>
+                <div class="package-description">QR code generation and reading</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.4.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=qr-code/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="queue">
+                <div class="package-name">queue</div>
+                <div class="package-description">Thread-safe queue implementations</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=queue/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="random-gen">
+                <div class="package-name">random-gen</div>
+                <div class="package-description">Random number generators</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=random-gen/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="regex">
+                <div class="package-name">regex</div>
+                <div class="package-description">Regular expression library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=regex/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="searching">
+                <div class="package-name">searching</div>
+                <div class="package-description">Search algorithms library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=searching/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="serialization">
+                <div class="package-name">serialization</div>
+                <div class="package-description">Object serialization library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=serialization/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="sorting">
+                <div class="package-name">sorting</div>
+                <div class="package-description">Sorting algorithms collection</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=sorting/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="stack">
+                <div class="package-name">stack</div>
+                <div class="package-description">Stack data structure utilities</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=stack/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="statistics">
+                <div class="package-name">statistics</div>
+                <div class="package-description">Statistical analysis functions</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=statistics/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="string-utils">
+                <div class="package-name">string-utils</div>
+                <div class="package-description">String manipulation utilities</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.5</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=string-utils/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="tcp-server">
+                <div class="package-name">tcp-server</div>
+                <div class="package-description">TCP server framework</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=tcp-server/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="template-engine">
+                <div class="package-name">template-engine</div>
+                <div class="package-description">Text template engine</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.5.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=template-engine/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="threading">
+                <div class="package-name">threading</div>
+                <div class="package-description">Threading utilities and primitives</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=threading/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="timer">
+                <div class="package-name">timer</div>
+                <div class="package-description">High-resolution timer library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=timer/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="tree">
+                <div class="package-name">tree</div>
+                <div class="package-description">Tree data structure library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=tree/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="udp-socket">
+                <div class="package-name">udp-socket</div>
+                <div class="package-description">UDP socket wrapper</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=udp-socket/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="url-parser">
+                <div class="package-name">url-parser</div>
+                <div class="package-description">URL parsing and manipulation</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=url-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="uuid-generator">
+                <div class="package-name">uuid-generator</div>
+                <div class="package-description">UUID generation library</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=uuid-generator/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="vector-math">
+                <div class="package-name">vector-math</div>
+                <div class="package-description">Vector and matrix operations</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.0.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=vector-math/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="video-decoder">
+                <div class="package-name">video-decoder</div>
+                <div class="package-description">Video decoding utilities</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.9.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=video-decoder/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="websocket">
+                <div class="package-name">websocket</div>
+                <div class="package-description">WebSocket implementation</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.3.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=websocket/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="xml-parser">
+                <div class="package-name">xml-parser</div>
+                <div class="package-description">Fast XML parsing library</div>
+                <div class="package-versions">
+                    <span class="version-badge">2.1.0</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=xml-parser/{version}
+                </div>
+            </div>
+            <div class="package-card" data-name="yaml-config">
+                <div class="package-name">yaml-config</div>
+                <div class="package-description">YAML configuration file parser</div>
+                <div class="package-versions">
+                    <span class="version-badge">1.5.2</span>
+                </div>
+                <div class="install-command">
+                    conan install --requires=yaml-config/{version}
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Generated on 2025-12-26 15:34:33 UTC</p>
+            <p>Built with ❤️ using GitHub Actions</p>
+        </footer>
+    </div>
+    
+    <script>
+        function filterPackages() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const packages = document.querySelectorAll('.package-card');
+            let visibleCount = 0;
+            
+            packages.forEach(package => {
+                const name = package.getAttribute('data-name');
+                if (name.includes(searchTerm)) {
+                    package.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    package.style.display = 'none';
+                }
+            });
+            
+            // Show "no results" message if needed
+            const packagesContainer = document.getElementById('packages');
+            const existingNoResults = packagesContainer.querySelector('.no-results');
+            
+            if (visibleCount === 0 && !existingNoResults) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.textContent = 'No packages found matching your search.';
+                packagesContainer.appendChild(noResults);
+            } else if (visibleCount > 0 && existingNoResults) {
+                existingNoResults.remove();
+            }
+        }
+    </script>
+</body>
+</html>
