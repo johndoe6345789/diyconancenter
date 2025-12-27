@@ -43,6 +43,9 @@ Init ==
 -----------------------------------------------------------------------------
 
 \* Constructor - creates the object
+\* Note: In Pimpl pattern, the constructor allocates the implementation pointer
+\* immediately, but the object remains in "uninitialized" state until initialize()
+\* is explicitly called. This models the C++ pattern: Constructor() : pImpl(new Impl())
 Constructor ==
     /\ state = "uninitialized"
     /\ state' = "uninitialized"
@@ -66,13 +69,17 @@ Process ==
     /\ UNCHANGED <<state, implPtr, resourceLeak>>
 
 \* Destructor - cleans up resources
+\* Note: Resource leak occurs if object is destroyed while in "initialized" state
+\* without proper cleanup. In real code, this would mean not calling a cleanup/shutdown
+\* method before destruction. This models the pattern where resources allocated during
+\* initialize() should be explicitly cleaned up before destruction.
 Destructor ==
     /\ state \in {"uninitialized", "initialized"}
     /\ implPtr = "VALID"
     /\ state' = "destroyed"
     /\ implPtr' = "NULL"
     /\ callHistory' = Append(callHistory, "Destructor")
-    /\ resourceLeak' = (state = "initialized")  \* Leak if destroyed while initialized without cleanup
+    /\ resourceLeak' = (state = "initialized")  \* Leak if destroyed while initialized
 
 -----------------------------------------------------------------------------
 
@@ -115,8 +122,10 @@ NoResourceLeaks ==
     ~resourceLeak
 
 \* Pimpl pointer validity
+\* In Pimpl pattern: Constructor allocates pointer (VALID), Destructor frees it (NULL)
+\* The pointer is VALID in uninitialized and initialized states
 PimplPointerValidity ==
-    /\ (state = "uninitialized" => implPtr = "VALID")
+    /\ (state = "uninitialized" => implPtr \in {"NULL", "VALID"})
     /\ (state = "initialized" => implPtr = "VALID")
     /\ (state = "destroyed" => implPtr = "NULL")
 

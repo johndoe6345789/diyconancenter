@@ -10,13 +10,13 @@ We have created formal TLA+ specifications for **6 major design patterns** used 
 
 | Pattern | Specification File | Config File | Lines of TLA+ |
 |---------|-------------------|-------------|---------------|
-| Uniform Wrapper (Pimpl) | `UniformWrapperPattern.tla` | `UniformWrapperPattern.cfg` | 139 |
-| Component-Based Architecture | `ComponentBasedArchitecture.tla` | `ComponentBasedArchitecture.cfg` | 179 |
-| Middleware Chain | `MiddlewareChainPattern.tla` | `MiddlewareChainPattern.cfg` | 181 |
-| Resource Management | `ResourceManagementPattern.tla` | `ResourceManagementPattern.cfg` | 162 |
-| Plugin Architecture | `PluginArchitecturePattern.tla` | `PluginArchitecturePattern.cfg` | 217 |
-| Async I/O | `AsyncIOPattern.tla` | `AsyncIOPattern.cfg` | 224 |
-| **Total** | | | **1,102** |
+| Uniform Wrapper (Pimpl) | `UniformWrapperPattern.tla` | `UniformWrapperPattern.cfg` | 131 |
+| Component-Based Architecture | `ComponentBasedArchitecture.tla` | `ComponentBasedArchitecture.cfg` | 160 |
+| Middleware Chain | `MiddlewareChainPattern.tla` | `MiddlewareChainPattern.cfg` | 184 |
+| Resource Management | `ResourceManagementPattern.tla` | `ResourceManagementPattern.cfg` | 161 |
+| Plugin Architecture | `PluginArchitecturePattern.tla` | `PluginArchitecturePattern.cfg` | 200 |
+| Async I/O | `AsyncIOPattern.tla` | `AsyncIOPattern.cfg` | 217 |
+| **Total** | | | **1,053** |
 
 ## Properties Verified
 
