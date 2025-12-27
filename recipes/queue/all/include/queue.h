@@ -19,7 +19,7 @@ public:
     bool push(const T& item);
     std::optional<T> pop();
     bool empty() const;
-    size_t size() const;
+    // Note: size() is not available for lock-free queues
 
 private:
     class Impl;

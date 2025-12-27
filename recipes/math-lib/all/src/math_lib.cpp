@@ -30,7 +30,7 @@ bool MathLib::process() {
 }
 
 double MathLib::power(double base, double exponent) {
-    return boost::math::pow<2>(base); // For simple power operations, or use std::pow
+    return std::pow(base, exponent);
 }
 
 double MathLib::sqrt(double x) {
@@ -56,7 +56,14 @@ long long MathLib::lcm(long long a, long long b) {
 
 bool MathLib::isPrime(int n) {
     if (n < 2) return false;
-    return boost::math::prime(n) == static_cast<unsigned>(n);
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    
+    // Simple primality test
+    for (int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) return false;
+    }
+    return true;
 }
 
 double MathLib::sin(double x) {

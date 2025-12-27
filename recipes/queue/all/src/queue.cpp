@@ -51,13 +51,6 @@ bool Queue<T>::empty() const {
     return pImpl->lockfree_queue.empty();
 }
 
-template<typename T>
-size_t Queue<T>::size() const {
-    // Note: Boost lockfree queue doesn't have a size() method
-    // This is a limitation of lock-free data structures
-    return 0; // Return 0 as we can't determine size in lock-free manner
-}
-
 // Explicit template instantiation for common types
 template class Queue<int>;
 template class Queue<double>;

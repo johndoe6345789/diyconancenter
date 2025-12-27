@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 
 namespace statistics {
 
@@ -61,7 +62,9 @@ double Statistics::median(const std::vector<double>& data) {
 }
 
 double Statistics::variance(const std::vector<double>& data) {
-    if (data.size() < 2) return 0.0;
+    if (data.size() < 2) {
+        throw std::invalid_argument("Variance requires at least 2 data points");
+    }
     
     using namespace boost::accumulators;
     accumulator_set<double, stats<tag::variance>> acc;
