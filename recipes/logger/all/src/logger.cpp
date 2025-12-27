@@ -1,22 +1,28 @@
 #include "logger.h"
+#include <spdlog/spdlog.h>
 #include <iostream>
 
 namespace logger {
 
-Logger::Logger() {
+class Logger::Impl {
+public:
+    // spdlog is header-only/singleton, no instance needed
+};
+
+Logger::Logger() : pImpl(std::make_unique<Impl>()) {
     // Constructor
 }
 
-Logger::~Logger() {
-    // Destructor
-}
+Logger::~Logger() = default;
 
 void Logger::initialize() {
-    std::cout << "Initializing logger..." << std::endl;
+    spdlog::info("Initializing logger with spdlog backend...");
 }
 
 bool Logger::process() {
-    std::cout << "Processing with logger..." << std::endl;
+    spdlog::info("Processing with logger (spdlog backend)...");
+    spdlog::debug("Debug message");
+    spdlog::warn("Warning message");
     return true;
 }
 

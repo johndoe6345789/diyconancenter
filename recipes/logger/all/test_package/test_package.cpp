@@ -2,11 +2,12 @@
 #include <iostream>
 
 int main() {
+    // Use the uniform API
     logger::Logger obj;
     obj.initialize();
     
     if (obj.process()) {
-        std::cout << "Test passed: logger is working!" << std::endl;
+        std::cout << "Test passed: logger (with spdlog backend) is working!" << std::endl;
         return 0;
     }
     

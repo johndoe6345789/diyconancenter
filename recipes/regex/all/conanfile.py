@@ -1,43 +1,24 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
 
 class RegexConan(ConanFile):
     name = "regex"
-    version = "2.0.0"
-    description = "Regular expression library"
+    version = "2023-11-01"
+    description = "Wrapper for re2 from Conan Center"
     license = "MIT"
     author = "DIY Conan Center"
-    url = "https://github.com/johndoe6345789/diyconancenter"
-    topics = ("c++", "library", "regex")
-    settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = {"shared": False, "fPIC": True}
-    exports_sources = "CMakeLists.txt", "src/*", "include/*"
+    url = "https://github.com/google/re2"
+    topics = ("c++", "library", "regex", "re2")
     
-    def config_options(self):
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+    def requirements(self):
+        # Pull the actual library from Conan Center
+        self.requires("re2/2023-11-01")
     
-    def configure(self):
-        if self.options.shared:
-            self.options.rm_safe("fPIC")
-    
-    def layout(self):
-        cmake_layout(self)
-    
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.generate()
-    
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-    
-    def package(self):
-        cmake = CMake(self)
-        cmake.install()
+    def package_id(self):
+        # This is a header-only wrapper, so it doesn't depend on settings
+        self.info.clear()
     
     def package_info(self):
-        self.cpp_info.libs = ["regex"]
+        # Propagate the dependency information
+        self.cpp_info.bindirs = []
+        self.cpp_info.libdirs = []

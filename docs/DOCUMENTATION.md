@@ -12,6 +12,7 @@ This repository demonstrates how to create a self-hosted Conan package repositor
    - Contains all Conan package recipes
    - Each package has its own directory
    - Follows Conan Center Index conventions
+   - **Features real library integration**: Many packages pull from actual open-source libraries
 
 2. **GitHub Actions** (`.github/workflows/`)
    - Automatically builds packages on push
@@ -22,6 +23,81 @@ This repository demonstrates how to create a self-hosted Conan package repositor
    - Hosts the package index
    - Provides searchable interface
    - Auto-generated from recipes
+
+## Real Library Integration
+
+This repository demonstrates **two approaches** for providing packages:
+
+### 1. Conan Center Wrappers
+
+These packages act as wrappers that fetch dependencies from Conan Center. This approach:
+- Leverages existing, well-tested packages
+- Provides familiar names for common libraries
+- Requires minimal maintenance
+- Automatically gets updates when Conan Center packages are updated
+
+**Example packages:**
+- `json-parser` → wraps `nlohmann_json/3.11.3`
+- `logger` → wraps `spdlog/1.13.0`
+- `crypto-utils` → wraps `openssl/3.2.0`
+
+**Recipe structure:**
+```python
+class JsonparserConan(ConanFile):
+    name = "json-parser"
+    version = "3.11.3"
+    
+    def requirements(self):
+        # Pull the actual library from Conan Center
+        self.requires("nlohmann_json/3.11.3")
+```
+
+### 2. Git Source Fetching
+
+These packages download source code directly from upstream repositories. This approach:
+- Provides access to libraries not yet in Conan Center
+- Allows customization of build configuration
+- Enables packaging of niche or specialized libraries
+- Gives full control over the build process
+
+**Example packages:**
+- `csv-parser` → fetches from [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser)
+- `http-client` → fetches from [yhirose/cpp-httplib](https://github.com/yhirose/cpp-httplib)
+
+**Recipe structure:**
+```python
+class CsvparserConan(ConanFile):
+    name = "csv-parser"
+    version = "2.3.0"
+    
+    def source(self):
+        # Download and extract from upstream
+        get(self, **self.conan_data["sources"][self.version], 
+            destination=self.source_folder, strip_root=True)
+    
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+```
+
+### 3. DIY Implementations
+
+Simple packages remain as demonstration/stub implementations useful for:
+- Teaching Conan package creation
+- Testing infrastructure
+- Placeholder implementations
+
+**Current Status:**
+- 19 packages pull from real libraries (13 from Conan Center, 6 from Git)
+- 2 packages have uniform wrapper APIs (json-parser, logger)
+- 31 packages are DIY/stub implementations
+
+**Note on SHA256 Checksums:**
+Some packages that fetch from Git currently use placeholder SHA256 values. In production use, these should be replaced with actual checksums calculated from the downloaded archives. This is a known limitation for demonstration purposes. To generate real checksums:
+```bash
+curl -L <archive-url> | sha256sum
+```
 
 ### Package Structure
 
@@ -243,7 +319,47 @@ GitHub Actions will automatically:
 
 ## Best Practices
 
-### 1. Version Management
+### 1. Using Real Libraries
+
+**When to use Conan Center wrappers:**
+- Library already exists in Conan Center
+- You want stable, tested packages
+- Minimal customization needed
+
+**When to fetch from Git:**
+- Library not yet in Conan Center
+- Need specific build configuration
+- Want to track upstream closely
+
+**Adding new real library mappings:**
+
+1. Edit `scripts/real_libraries_mapping.py`
+2. Add entry to `REAL_LIBRARIES` dictionary:
+
+```python
+"my-package": {
+    "upstream_url": "https://github.com/author/repo",
+    "real_name": "real-library-name",
+    "version": "1.2.3",
+    "archive_url": "https://github.com/author/repo/archive/v1.2.3.tar.gz",
+    "sha256": "actual-sha256-checksum",
+    "use_conan_center": True,  # or False
+    "conan_center_name": "package-name",  # if use_conan_center
+},
+```
+
+3. Run the update script:
+```bash
+python3 scripts/update_to_real_libraries.py
+```
+
+4. Test the updated package:
+```bash
+cd recipes/my-package/all
+conan create . --build=missing
+```
+
+### 2. Version Management
 
 - Use semantic versioning (MAJOR.MINOR.PATCH)
 - Keep different versions in separate folders if they differ significantly
