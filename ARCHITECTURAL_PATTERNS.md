@@ -4,11 +4,28 @@
 
 This document outlines architectural design patterns and best practices for creating packages across various domains in the DIY Conan Center. These patterns ensure consistency, maintainability, and scalability as the repository expands to cover diverse areas from game development to server infrastructure.
 
+## 📐 Formal Specifications
+
+All major design patterns in this document have been formally specified using **TLA+ (Temporal Logic of Actions)**. These specifications provide:
+- Mathematical proofs of correctness
+- Exhaustive state space exploration via model checking
+- Verification of safety and liveness properties
+- Precise documentation of pattern behavior
+
+**See [tla-specs/README.md](tla-specs/README.md) for detailed TLA+ specifications and verification results.**
+
 ## Core Design Patterns
 
 ### 1. Uniform Wrapper Pattern (Recommended for Common Libraries)
 
 **Use Case:** When you want to provide a consistent API while leveraging production-ready libraries.
+
+**🔍 Formal Verification:** See [tla-specs/UniformWrapperPattern.tla](tla-specs/UniformWrapperPattern.tla) for the complete TLA+ specification that verifies:
+- Process can only be called after initialization
+- Single initialization lifecycle
+- No operations after destruction
+- No resource leaks
+- Pimpl pointer validity
 
 **Structure:**
 ```
@@ -85,6 +102,13 @@ bool PackageName::process() {
 
 **Pattern: Component-Based Architecture**
 
+**🔍 Formal Verification:** See [tla-specs/ComponentBasedArchitecture.tla](tla-specs/ComponentBasedArchitecture.tla) for the complete TLA+ specification that verifies:
+- Components must be initialized before running
+- Event-driven communication correctness
+- Event queue bounded
+- All components eventually initialize
+- Events are eventually processed
+
 ```
 game-engine-component/
 ├── include/
@@ -118,6 +142,13 @@ game-engine-component/
 **Domains:** HTTP Servers, WebSocket, REST API, GraphQL, Frontend Integration
 
 **Pattern: Middleware Chain Architecture**
+
+**🔍 Formal Verification:** See [tla-specs/MiddlewareChainPattern.tla](tla-specs/MiddlewareChainPattern.tla) for the complete TLA+ specification that verifies:
+- Sequential middleware execution
+- Request processing before middleware execution
+- Short-circuiting support
+- Error handling correctness
+- All requests eventually complete
 
 ```
 web-framework/
@@ -339,6 +370,14 @@ server-tool/
 
 **Use Case:** Extensible systems requiring runtime plugin loading
 
+**🔍 Formal Verification:** See [tla-specs/PluginArchitecturePattern.tla](tla-specs/PluginArchitecturePattern.tla) for the complete TLA+ specification that verifies:
+- Load before register
+- Register before execute
+- Dependencies always satisfied
+- No circular dependencies
+- Cannot unregister with dependents
+- State consistency
+
 ```cpp
 class IPlugin {
 public:
@@ -364,6 +403,14 @@ public:
 
 **Use Case:** High-performance network services, concurrent operations
 
+**🔍 Formal Verification:** See [tla-specs/AsyncIOPattern.tla](tla-specs/AsyncIOPattern.tla) for the complete TLA+ specification that verifies:
+- Non-blocking operation initiation
+- Callbacks called exactly once
+- No callback after cancellation
+- Cannot complete cancelled operations
+- Pending operations eventually processed
+- Completed operations invoke callbacks
+
 ```cpp
 class AsyncOperation {
 public:
@@ -387,6 +434,14 @@ std::future<Result> async_http_get(const std::string& url);
 ### 11. Resource Management Pattern
 
 **Use Case:** Large datasets, GPU resources, file handles
+
+**🔍 Formal Verification:** See [tla-specs/ResourceManagementPattern.tla](tla-specs/ResourceManagementPattern.tla) for the complete TLA+ specification that verifies:
+- Handle uniqueness
+- No double loading
+- Access requires loaded resource
+- No use-after-free
+- Resources consistent with handles
+- All resources can be unloaded
 
 ```cpp
 template<typename Resource>
