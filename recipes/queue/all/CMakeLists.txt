@@ -4,12 +4,18 @@ project(queue CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Find Boost
+find_package(Boost REQUIRED CONFIG)
+
 add_library(queue src/queue.cpp)
 
 target_include_directories(queue PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+
+# Link to Boost (header-only lockfree library)
+target_link_libraries(queue PUBLIC Boost::headers)
 
 install(TARGETS queue
     ARCHIVE DESTINATION lib
