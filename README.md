@@ -300,6 +300,14 @@ diyconancenter/
 │   │       ├── include/            # Header files
 │   │       └── test_package/       # Package tests
 │   └── [49 more packages...]
+├── tla-specs/                      # TLA+ formal specifications
+│   ├── UniformWrapperPattern.tla   # Pimpl pattern spec
+│   ├── ComponentBasedArchitecture.tla  # Game dev pattern spec
+│   ├── MiddlewareChainPattern.tla  # Web pattern spec
+│   ├── ResourceManagementPattern.tla   # Resource handling spec
+│   ├── PluginArchitecturePattern.tla   # Plugin system spec
+│   ├── AsyncIOPattern.tla          # Async I/O spec
+│   └── README.md                   # TLA+ documentation
 ├── docs/                           # GitHub Pages documentation
 │   ├── index.html                  # Package index page
 │   └── packages.json               # Package metadata
@@ -344,6 +352,12 @@ ln -s ../../scripts/pre-commit-hook.sh .git/hooks/pre-commit
   - AI/ML (inference, computer vision, NLP)
   - Dev tools (analyzers, formatters, profilers)
   - Server tools (containers, networking, monitoring)
+
+**Formal verification with TLA+:**
+- See [tla-specs/README.md](tla-specs/README.md) for formal specifications
+- All major patterns have been formally verified using TLA+
+- Model checking ensures correctness properties
+- Specifications serve as precise documentation
 
 ### Creating a New Package
 
