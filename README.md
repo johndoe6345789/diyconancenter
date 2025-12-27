@@ -25,6 +25,11 @@ These packages provide a **uniform, predictable API** while using real productio
 |--------------|-------------|-----------------|---------------------|
 | `json-parser` | `json_parser::JsonParser` | nlohmann_json | `nlohmann_json/3.11.3` |
 | `logger` | `logger::Logger` | spdlog | `spdlog/1.13.0` |
+| `string-utils` | `string_utils::StringUtils` | Boost.Algorithm.String | `boost/1.86.0` |
+| `math-lib` | `math_lib::MathLib` | Boost.Math | `boost/1.86.0` |
+| `statistics` | `statistics::Statistics` | Boost.Accumulators | `boost/1.86.0` |
+| `queue` | `queue::Queue<T>` | Boost.Lockfree | `boost/1.86.0` |
+| `encryption` | `encryption::Encryption` | Libsodium | `libsodium/1.0.20` |
 
 **Benefits:**
 - ✅ **Predictable API**: All packages follow the same pattern with `initialize()` and `process()` methods
@@ -74,7 +79,7 @@ These packages download source code directly from upstream repositories:
 
 ### DIY/Stub Implementations
 
-The remaining packages (~31) are simple DIY implementations useful for demonstration and testing purposes.
+The remaining packages (~26) are simple DIY implementations useful for demonstration and testing purposes.
 
 ## 📚 Available Packages (50 Total)
 
